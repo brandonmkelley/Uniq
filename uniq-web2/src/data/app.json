@@ -1,0 +1,136 @@
+{
+    "action": [
+        {
+            "_id": "0",
+            "name": "Watch latest avatar episode",
+            "command": [
+                {
+                    "auditory": "watch avatar"
+                }
+            ],
+            "result": [
+                {
+                    "application": "Netflix",
+                    "intent": "start",
+                    "param": {
+                        "name": "Avatar: the Last Airbender",
+                        "season": "^",
+                        "episode": "^"
+                    },
+                    "interface": [ "auditory", "visual" ]
+                }
+            ]
+        }
+    ],
+    "env": [
+        {
+            "_id": "0",
+            "name": "Bedroom",
+            "device": [
+                {
+                    "_id": "0",
+                    "name": "Chromecast",
+                    "interface": "Google Chromecast"
+                },
+                {
+                    "_id": "1",
+                    "name": "Home mini",
+                    "interface": "Google Home"
+                },
+                {
+                    "_id": "8",
+                    "name": "Pixel XL",
+                    "interface": "Android"
+                }
+            ],
+            "session": [
+                {
+                    "_id": "0",
+                    "action": "Watch latest avatar episode"
+                }
+            ]
+        },
+        {
+            "_id": "1",
+            "name": "Living room",
+            "device": [
+                {
+                    "_id": "2",
+                    "name": "Chromecast Ultra",
+                    "interface": "Google Chromecast",
+                    "preferredOutput": [ "visual" ]
+                },
+                {
+                    "_id": "3",
+                    "name": "Home",
+                    "interface": "Google Home",
+                    "preferredOutput": [ "auditory" ]
+                },
+                {
+                    "_id": "4",
+                    "name": "Echo dot",
+                    "interface": "Amazon Echo"
+                },
+                {
+                    "_id": "5",
+                    "name": "Xbox One S",
+                    "interface": "Microsoft Xbox One"
+                },
+                {
+                    "_id": "6",
+                    "name": "Surface Book",
+                    "interface": "Windows Desktop"
+                }
+            ]
+        },
+        {
+            "_id": "2",
+            "name": "Office",
+            "device": [
+                {
+                    "_id": "7",
+                    "name": "Elitebook",
+                    "interface": "Windows Desktop"
+                }
+            ]
+        }
+    ],
+    "interface": [
+        {
+            "_id": "0",
+            "name": "Google Chromecast",
+            "inputCapabilities": [],
+            "outputCapabilities": [ "auditory", "visual" ]
+        },
+        {
+            "_id": "1",
+            "name": "Google Home",
+            "inputCapabilities": [ "vocal" ],
+            "outputCapabilities": [ "auditory" ]
+        },
+        {
+            "_id": "2",
+            "name": "Amazon Echo",
+            "inputCapabilities": [ "vocal" ],
+            "outputCapabilities": [ "auditory" ]
+        },
+        {
+            "_id": "3",
+            "name": "Microsoft Xbox One",
+            "inputCapabilities": [ "physical" ],
+            "outputCapabilities": [ "haptic", "auditory", "visual" ]
+        },
+        {
+            "_id": "3",
+            "name": "Windows Desktop",
+            "inputCapabilities": [ "physical", "auditory" ],
+            "outputCapabilities": [ "auditory", "visual" ]
+        },
+        {
+            "_id": "4",
+            "name": "Android",
+            "inputCapabilities": [ "physical", "auditory", "visual" ],
+            "outputCapabilities": [ "haptic", "auditory", "visual" ]
+        }
+    ]
+}

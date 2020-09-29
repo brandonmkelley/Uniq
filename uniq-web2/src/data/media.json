@@ -1,0 +1,28 @@
+{
+    "articles": [
+        {
+            "shortName": "Environment",
+            "longName": "Connect into Uniq Environments",
+            "description": "Excel at tasks in connected environments, increasing your workability through improved speed and ease.",
+            "content": "<div>&bull; More open workspace, promotes better well-being and productivity</div><div>&bull; Interconnected and centralized</div><div>&bull; Software and electronic integrations</div>",
+            "lastEdit": "3 mins ago.",
+            "image": "carddemo-ipad.jpg"
+        },
+        {
+            "shortName": "Action",
+            "longName": "Focus with Uniq Actions",
+            "description": "Engage with focused actions, in which template interactions lead to convenient, reproducible results.",
+            "content": "<div>&bull; HCI: Synergistic when interacting in two ways with the same topic.</div><div>&bull; Complete tasks across devices in your environment.</div><div>&bull; Build out your own reproducible scenarios</div><div>&bull;</div><div>&bull;</div>",
+            "lastEdit": "36 mins ago.",
+            "image": "carddemo-meetingroom.jpg"
+        },
+        {
+            "shortName": "Session",
+            "longName": "Adapt across Uniq Sessions",
+            "description": "Augment common use cases by adapting your sessions with those of other users, creating next-generation collaborative scenarios.",
+            "content": "<div>&bull; Start and complete actions in parallel, leaving some as extended sessions</div><div>&bull; Share instances of actions</div><div>&bull; Invoke actions alongside others in a shared environment</div>",
+            "lastEdit": "4 hrs ago.",
+            "image": "carddemo-impromptu.jpg"
+        }
+    ]
+}
