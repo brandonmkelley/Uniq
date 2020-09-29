@@ -1,0 +1,22 @@
+
+# Logs
+*.log
+npm-debug.log*
+
+# Packages
+node_modules/
+uniq-server/node_modules
+uniq-web/node_modules
+
+# Build files
+uniq-server/index.js
+uniq-web/build
+
+# Database files
+uniq-server/db
+
+# Firebase account info
+uniq-server/firebaseServiceAccount.json
+
+# VS Code config
+.vscode/**

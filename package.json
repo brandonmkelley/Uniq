@@ -1,0 +1,20 @@
+{
+  "name": "uniq",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "mongod": "mongod --dbpath ./uniq-server/db",
+    "build": "npm run build --prefix ./uniq-web && npm run build --prefix ./uniq-server",
+    "prod": "npm run prod --prefix ./uniq-server -- -s ../uniq-web/build",
+    "dev-web": "npm run start --prefix ./uniq-web",
+    "dev-server": "npm run dev --prefix ./uniq-server"
+  },
+  "author": "Brandon Kelley",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react-router-dom": "^5.1.5",
+    "react-router-dom": "^5.2.0",
+    "reduce-reducers": "^1.0.4"
+  }
+}
