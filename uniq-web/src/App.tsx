@@ -3,21 +3,14 @@ import React, { useEffect, useContext } from 'react'
 
 import * as firebase from 'firebase'
 
-import io from 'socket.io-client'
 import { ServiceContext } from './index'
 
 import { useSelector, useDispatch } from 'react-redux'
-
-import { combineReducers } from 'redux'
-
-import { createSlice } from '@reduxjs/toolkit'
 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-
-// import AppState from './AppState'
 
 import TopNav from './components/TopNav'
 
@@ -31,7 +24,6 @@ import { authSlice } from './slices/auth'
 export default function() {
   const dispatch = useDispatch()
   const services = useContext(ServiceContext)
-  const socket = services.socket
   const firebaseApp = services.firebaseApp
 
   useEffect(() => {
@@ -39,7 +31,6 @@ export default function() {
   })
 
   // Bind auth state changed listener to auth slice to update UI state.
-  
   useEffect(() => {
     firebase.auth(firebaseApp).onAuthStateChanged(result => {
       if (result)

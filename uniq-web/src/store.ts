@@ -1,6 +1,5 @@
 
 import { configureStore } from "@reduxjs/toolkit"
-import { combineReducers } from 'redux'
 import { layoutSlice } from './slices/layout'
 import { authSlice } from './slices/auth'
 import reduceReducers from 'reduce-reducers'
@@ -9,9 +8,6 @@ import reduceReducers from 'reduce-reducers'
 
 const reducer = reduceReducers(layoutSlice.reducer, authSlice.reducer) as any
 
-const store = configureStore({
-    reducer: reducer // reducer
-    // combineReducers({ layoutReducer /* , authReducer */ })
-})
+const store = configureStore({ reducer: reducer })
 
 export default store

@@ -5,19 +5,14 @@ import firebase from 'firebase'
 
 import { useSelector } from 'react-redux'
 
-import { authSlice } from '../slices/auth'
-
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
+// import NavDropdown from 'react-bootstrap/NavDropdown'
 import Form from 'react-bootstrap/Form'
-import FormGroup from 'react-bootstrap/FormGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
 import { Link } from 'react-router-dom'
-
-// import AppState from '../AppState'
 
 import { ServiceContext } from '../index'
 
@@ -31,14 +26,9 @@ export default function(params: TopNavParams) {
     const firebaseApp = services.firebaseApp
 
     const userEmail = useSelector((state: any) => state.userEmail)
-    //const userEmail: string = ''
-
-    console.log('nav refresh: ' + userEmail)
 
     const emailRef = useRef(null)
     const passRef = useRef(null)
-
-    //firebase.auth(firebaseApp).signOut()
 
     const signIn = (e: any) => {
         e.preventDefault()

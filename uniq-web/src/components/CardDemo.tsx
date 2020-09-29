@@ -16,7 +16,7 @@ export default function(params: CardDemoParams) {
     return (
         <Card>
             <div className="text-center">
-                { params.imageSource && <img width="100%" src={ params.imageSource }/> }
+                { params.imageSource && <img alt={ params.title + ' stock image' } width="100%" src={ params.imageSource }/> }
             </div>
             <Card.Body>
                 <Card.Title>{ params.title }</Card.Title>

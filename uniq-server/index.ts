@@ -19,7 +19,7 @@ if (pathIndex !== -1 && process.argv.length > pathIndex + 1) {
 
 import * as mongoose from 'mongoose'
 
-mongoose.connect('mongodb://localhost/uniq', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/uniq', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const userSchema = new mongoose.Schema({
     email: String
@@ -52,6 +52,8 @@ io.use(socketSession(appSession))
 
 db.on('error', console.error.bind(console, 'Mongo connection error:'));
 
+/*
+// Test connection
 db.once('open', function() {
   // we're connected!
     console.log('connected')
@@ -60,6 +62,7 @@ db.once('open', function() {
 
     User.watch().on('change', console.log)
 });
+*/
 
 var firebaseAdmin = require('firebase-admin');
 
@@ -80,7 +83,7 @@ io.on('connection', (socket: any) => {
         if (context && context.sid)
             firebaseAdminRef.auth().verifyIdToken(context.sid)
                 .then(decoded => {
-                    console.log(decoded)
+                    //console.log(decoded)
 
                     User.find((err: any, users: any) => socket.emit('read-env-list', users))
                 })

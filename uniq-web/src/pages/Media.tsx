@@ -13,7 +13,7 @@ import mediaData from '../data/media.json'
 export default function() {
     let { shortName } : any = useParams()
 
-    const filteredMedia = mediaData.articles.filter((o) => o.shortName == shortName);
+    const filteredMedia = mediaData.articles.filter((o) => o.shortName === shortName);
 
     const selectedMedia = (filteredMedia.length > 0) ? filteredMedia[0] : mediaData.articles[0];
 
@@ -38,7 +38,7 @@ export default function() {
             </Col>
             <Col xs="5" className="p-3" style={{ height: '70vh', display: 'flex', alignItems: 'center' }}>
                 <div className="text-right">
-                    <div><img width="100%" src={ '/' + selectedMedia.image }/></div>
+                    <div><img alt={ selectedMedia.shortName + ' stock image' } width="100%" src={ '/' + selectedMedia.image }/></div>
                     <div className="mt-2 float-right"><i>{ selectedMedia.description }</i></div>
                 </div>
             </Col>

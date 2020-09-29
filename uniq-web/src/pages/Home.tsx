@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux'
 import Col from 'react-bootstrap/Col'
 import CardGroup from 'react-bootstrap/CardGroup'
 
-//import AppState from '../AppState'
-
 import JumbotronDemoBanner from '../components/JumbotronDemoBanner'
 import CardDemo from '../components/CardDemo'
 

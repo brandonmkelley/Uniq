@@ -11,17 +11,18 @@ import * as firebase from 'firebase'
 
 import * as serviceWorker from './serviceWorker'
 
+
+
+
 var host = 'http://'
 
-if (window.location.hostname == 'localhost')
+if (window.location.hostname === 'localhost')
   host += '127.0.0.1'
 else
   host += window.location.hostname
 
-host += ':' + '8080'// window.location.port
+host += ':8080'// window.location.port
 // TODO: fix this later ^
-
-console.log(host)
 
 const socket = io(host)
 
