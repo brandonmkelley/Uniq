@@ -92,4 +92,4 @@ io.on('connection', (socket: any) => {
     })
 })
 
-httpServer.listen(8080, '127.0.0.1')
+httpServer.listen(8080)
