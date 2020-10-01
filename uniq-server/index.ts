@@ -3,27 +3,44 @@ import * as express from "express"
 
 const app = express()
 
-import { createServer } from 'https'
+import { createServer as createHTTPServer } from 'http'
+import { createServer as createHTTPSServer } from 'https'
 import * as fs from 'fs'
 
-const httpsOptions = {
-    key: fs.readFileSync('private.key'),
-    cert: fs.readFileSync('certificate.crt'),
-    ca: fs.readFileSync('ca_bundle.crt')
+// Read -p argument to deploy prod
+var server = null;
+var port = null;
+
+var pathIndex = process.argv.indexOf('-p')
+var prod = pathIndex !== -1
+
+if (prod) {
+    const httpsOptions = {
+        key: fs.readFileSync('private.key'),
+        cert: fs.readFileSync('certificate.crt'),
+        ca: fs.readFileSync('ca_bundle.crt')
+    }
+    
+    const httpsServer = createHTTPSServer(httpsOptions, app)
+    port = 4430
 }
 
-const httpsServer = createServer(httpsOptions, app)
-
-import * as socketio from 'socket.io'
-const io = socketio(httpsServer)
+else {
+    server = createHTTPServer(app)
+    port = 8080
+}
 
 // Read -s argument if static files need to be served (prod only.)
-const pathIndex = process.argv.indexOf('-s')
+pathIndex = process.argv.indexOf('-s')
 
 if (pathIndex !== -1 && process.argv.length > pathIndex + 1) {
     var staticPath = process.argv[pathIndex + 1];
     app.use(express.static(staticPath))
 }
+
+
+import * as socketio from 'socket.io'
+const io = socketio(server)
 
 import * as mongoose from 'mongoose'
 
@@ -36,8 +53,6 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('user', userSchema)
 
 const db = mongoose.connection
-
-
 
 import * as expressSession from 'express-session'
 import * as socketSession from 'express-socket.io-session'
@@ -100,4 +115,7 @@ io.on('connection', (socket: any) => {
     })
 })
 
-httpsServer.listen(443)
+if (prod)
+    server.listen(port)
+else
+    server.listen(port, '127.0.0.1')

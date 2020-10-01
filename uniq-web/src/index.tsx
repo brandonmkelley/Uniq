@@ -11,23 +11,13 @@ import * as firebase from 'firebase'
 
 import * as serviceWorker from './serviceWorker'
 
-
-
-
-var host = 'https://'
+var socket = null
 
 if (window.location.hostname === 'localhost')
-  host += '127.0.0.1'
+  socket = io('http://127.0.0.1:8080')
+
 else
-  host += window.location.hostname
-
-host += ':443'// window.location.port
-// TODO: fix this later ^
-
-const socket = io(host, { secure: true })
-
-
-
+  socket = io('https://' + window.location.hostname + ':443', { secure: true })
 
 const firebaseApp = firebase.initializeApp({
     apiKey: "AIzaSyBUroEN1LLBpeTp1U2y6TUsCqSVrCWbSjM",
@@ -39,8 +29,6 @@ const firebaseApp = firebase.initializeApp({
     appId: "1:957655912160:web:3347953fa9dd2d18d58a85",
     measurementId: "G-5L0F9F07YV"
 })
-
-
 
 const ServiceContext = React.createContext({ socket: socket, firebaseApp: firebaseApp })
 
