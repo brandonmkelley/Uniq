@@ -18,5 +18,13 @@ uniq-server/db
 # Firebase account info
 uniq-server/firebaseServiceAccount.json
 
+# SSL config
+uniq-server/*.key
+uniq-server/*.crt
+
+# Misc Ubuntu files
+uniq-server/etc
+uniq-web/etc
+
 # VS Code config
 .vscode/**

@@ -3,11 +3,19 @@ import * as express from "express"
 
 const app = express()
 
-import { createServer } from 'http'
-const httpServer = createServer(app)
+import { createServer } from 'https'
+import * as fs from 'fs'
+
+const httpsOptions = {
+    key: fs.readFileSync('private.key'),
+    cert: fs.readFileSync('certificate.crt'),
+    ca: fs.readFileSync('ca_bundle.crt')
+}
+
+const httpsServer = createServer(httpsOptions, app)
 
 import * as socketio from 'socket.io'
-const io = socketio(httpServer)
+const io = socketio(httpsServer)
 
 // Read -s argument if static files need to be served (prod only.)
 const pathIndex = process.argv.indexOf('-s')
@@ -92,4 +100,4 @@ io.on('connection', (socket: any) => {
     })
 })
 
-httpServer.listen(8080)
+httpsServer.listen(443)

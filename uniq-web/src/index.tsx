@@ -14,17 +14,17 @@ import * as serviceWorker from './serviceWorker'
 
 
 
-var host = 'http://'
+var host = 'https://'
 
 if (window.location.hostname === 'localhost')
   host += '127.0.0.1'
 else
   host += window.location.hostname
 
-host += ':8080'// window.location.port
+host += ':443'// window.location.port
 // TODO: fix this later ^
 
-const socket = io(host)
+const socket = io(host, { secure: true })
 
 
 
