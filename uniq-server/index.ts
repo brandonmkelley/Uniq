@@ -21,7 +21,7 @@ if (prod) {
         ca: fs.readFileSync('ca_bundle.crt')
     }
     
-    const httpsServer = createHTTPSServer(httpsOptions, app)
+    server = createHTTPSServer(httpsOptions, app)
     port = 4430
 }
 
