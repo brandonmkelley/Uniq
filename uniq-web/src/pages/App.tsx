@@ -1,32 +1,29 @@
 
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 
 import * as firebase from 'firebase'
 
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Table from 'react-bootstrap/Table'
+
 import { useSelector } from 'react-redux'
+
+import { AppState } from '../AppState'
 
 import { ServiceContext } from '../index'
 
-import Col from 'react-bootstrap/Col'
-import CardGroup from 'react-bootstrap/CardGroup'
-
-import JumbotronDemoBanner from '../components/JumbotronDemoBanner'
-import CardDemo from '../components/CardDemo'
-
-import mediaData from '../data/media.json'
-
-
-
 export default function() {
-    const jumboHeight = useSelector((state: any) => state.layoutJumboHeight) || ''
-    const cardsHeight = useSelector((state: any) => state.layoutCardHeight) || ''
+    const userEmail = useSelector((state: AppState) => state.userEmail)
 
     const services = useContext(ServiceContext)
     const socket = services.socket
     const firebaseApp = services.firebaseApp
 
-    useEffect(() => {
+    const [userList, setUserList] = useState([])
 
+    useEffect(() => {
         var currentUser = firebase.auth(firebaseApp).currentUser
 
         if (currentUser !== null)
@@ -37,33 +34,35 @@ export default function() {
         else
             socket.emit('read-page-app')
 
-        socket.on('read-env-list', (envs: any) => {
-            //console.log('Response to read-env-list:')
-            //console.log(envs)
+        socket.on('read-user-list', (e: any) => {
+            setUserList(e)
+            console.log(e)
         })
 
         return () => {
-            socket.off('read-env-list')
+            socket.off('read-user-list')
         }
-    })
+    }, [firebaseApp, socket, userEmail])
 
     return (
-        <React.Fragment>
-            <Col xs={ 12 }>
-                <JumbotronDemoBanner height={ jumboHeight } />
-            </Col>
-            <CardGroup style={{ width: "100%", height: cardsHeight }}>
-                {mediaData.articles.map((o, i) => {
-                    return (
-                        <CardDemo
-                            key={ i }
-                            imageSource={ "/" + o.image }
-                            title={ o.shortName }
-                            text={ o.description }
-                            footer={ o.lastEdit } />
-                    )
-                })}
-            </CardGroup>
-        </React.Fragment>
+        <Container fluid>
+            <Row>
+                <Col xs="12">
+                    <h3>Users</h3>
+                    <Table striped bordered hover responsive style={{ width: '300px' }}>
+                        <thead>
+                            <tr><td>Email</td></tr>
+                        </thead>
+                        <tbody>
+                            {
+                                userList.map((o: { email: string }, i) => 
+                                    <tr key={ o.email }><td>{ o.email }</td></tr>
+                                )
+                            }
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>
+        </Container>
     )
 }

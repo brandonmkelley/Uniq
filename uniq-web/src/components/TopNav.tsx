@@ -26,6 +26,7 @@ export default function(params: TopNavParams) {
 
     const services = useContext(ServiceContext)
     const firebaseApp = services.firebaseApp
+    const socket = services.socket
 
     const userEmail = useSelector((state: any) => state.userEmail)
 
@@ -66,7 +67,16 @@ export default function(params: TopNavParams) {
                 (signInEmailRef.current || { value: '' }).value,
                 (signInPassRef.current || { value: '' }).value)
             .catch(catchSignInError)
-            .then(afterSignIn)
+            .then(e => {
+                afterSignIn(e)
+
+                const currentUser = firebase.auth(firebaseApp).currentUser
+
+                if (currentUser !== null)
+                    currentUser
+                        .getIdToken()
+                        .then(sid => socket.emit('insert-user', { sid: sid, email: currentUser.email }))
+            })
     }
 
     const signOut = () => {
@@ -80,7 +90,7 @@ export default function(params: TopNavParams) {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                 <Nav.Link as={Link} to="/media">Media</Nav.Link>
-                <Nav.Link as={Link} to="/app">App</Nav.Link>
+                <Nav.Link as={Link} to="/app" style={{ visibility: ((userEmail) ? 'visible' : 'hidden') }}>App</Nav.Link>
                 {/*
                 <Nav.Link href="#link">Link</Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -92,6 +102,7 @@ export default function(params: TopNavParams) {
                 </NavDropdown>
                 */}
                 </Nav>
+                
                 { !userEmail &&
                     <Form inline onSubmit={ signIn }>
                         <FormControl ref={ signInEmailRef } type="text" placeholder="Email" className="mr-sm-2" />

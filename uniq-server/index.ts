@@ -44,13 +44,14 @@ const io = socketio(server)
 
 import * as mongoose from 'mongoose'
 
-mongoose.connect('mongodb://localhost/uniq', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/uniq?replicaSet=rs0', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const userSchema = new mongoose.Schema({
     email: String
 })
 
-const User = mongoose.model('user', userSchema)
+const User = mongoose.model('users', userSchema)
+
 
 const db = mongoose.connection
 
@@ -74,6 +75,9 @@ app.use(appSession)
 io.use(socketSession(appSession))
 
 db.on('error', console.error.bind(console, 'Mongo connection error:'));
+
+User.watch().on('change', console.log)
+// User.find((err: any, users: any) => console.log(users))
 
 /*
 // Test connection
@@ -108,10 +112,34 @@ io.on('connection', (socket: any) => {
                 .then(decoded => {
                     //console.log(decoded)
 
-                    User.find((err: any, users: any) => socket.emit('read-env-list', users))
+                    User.find((err: any, users: any) => socket.emit('read-user-list', users))
                 })
         else
-            socket.emit('read-env-list', [])
+            socket.emit('read-user-list', [])
+    })
+
+    socket.on('insert-user', (context) => {
+        if (context && context.sid)
+            firebaseAdminRef.auth().verifyIdToken(context.sid)
+                .then(decoded => {
+                    User.create({ email: context.email }, (err, _) => {
+                        // Definitely replace this with a change stream listener.
+                        User.find((err: any, users: any) => socket.broadcast.emit('read-user-list', users))
+                    })
+                })
+    })
+
+    //socket.on('patch-user')
+
+    socket.on('delete-user', (context) => {
+        if (context && context.sid)
+            firebaseAdminRef.auth().verifyIdToken(context.sid)
+                .then(decoded => {
+                    User.findOneAndRemove({ email: context.email }, () => {
+                        // Definitely replace this with a change stream listener.
+                        User.find((err: any, users: any) => socket.broadcast.emit('read-user-list', users))
+                    })
+                })
     })
 })
 
