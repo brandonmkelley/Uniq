@@ -9,6 +9,7 @@ uniq-server/node_modules
 uniq-web/node_modules
 
 # Build files
+build/
 uniq-server/index.js
 uniq-web/build
 

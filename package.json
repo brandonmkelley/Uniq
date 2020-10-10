@@ -4,12 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "test": "jest",
     "mongod": "mongod --dbpath ./uniq-server/db --replSet rs0",
-    "build": "npm run build --prefix ./uniq-web && npm run build --prefix ./uniq-server",
-    "prod": "npm run prod --prefix ./uniq-server -- -s ../uniq-web/build -p",
+    "prod-build": "npm run build --prefix ./uniq-web && npm run build --prefix ./uniq-server",
+    "prod-server": "npm run prod --prefix ./uniq-server -- -s ../uniq-web/build -p",
     "dev-web": "npm run start --prefix ./uniq-web",
     "dev-server": "npm run dev --prefix ./uniq-server"
   },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "modulePathIgnorePatterns": ["uniq-web", "uniq-server", "build", "node_modules"]
+  },
   "author": "Brandon Kelley",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@types/jest": "^26.0.14",
+    "jest": "^26.5.2",
+    "ts-jest": "^26.4.1",
+    "typescript": "^4.0.3"
+  }
 }

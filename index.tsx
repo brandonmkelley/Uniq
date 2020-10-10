@@ -1,4 +1,4 @@
 
-import App from './uniq-web/src/App'
-
-export default App
+export default () => {
+    return 'hello uniq module!'
+}
