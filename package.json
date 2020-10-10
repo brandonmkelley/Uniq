@@ -2,9 +2,9 @@
   "name": "uniq",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "build": "tsc",
+    "install": "tsc",
     "test": "jest",
     "mongod": "mongod --dbpath ./uniq-server/db --replSet rs0",
     "prod-build": "npm run build --prefix ./uniq-web && npm run build --prefix ./uniq-server",
