@@ -6,7 +6,7 @@
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
   "scripts": {
-    "build": ".\\node_modules\\.bin\\rollup -c",
+    "install": ".\\node_modules\\.bin\\rollup -c",
     "test": "jest",
     "mongod": "mongod --dbpath ./uniq-server/db --replSet rs0",
     "prod-build": "npm run build --prefix ./uniq-web && npm run build --prefix ./uniq-server",
