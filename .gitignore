@@ -12,6 +12,7 @@ uniq-web/node_modules
 build/
 uniq-server/index.js
 uniq-web/build
+uniq-*.tgz
 
 # Database files
 uniq-server/db

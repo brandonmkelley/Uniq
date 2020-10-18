@@ -18,6 +18,6 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true
     },
-    "include": ["."],
+    "include": ["index.tsx"],
     "exclude": ["node_modules", "build", "uniq-server", "uniq-web"]
 }
